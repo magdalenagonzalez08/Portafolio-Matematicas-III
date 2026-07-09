@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Portafolio Digital - Matemática III</title>
+<style>
+:root{--bg:#071421;--bg2:#0b2740;--glass:rgba(255,255,255,.13);--glass2:rgba(255,255,255,.22);--line:rgba(255,255,255,.26);--text:#f7fbff;--muted:#d8e8f7;--cyan:#6ee7ff;--blue:#52a7ff;--gold:#ffe9a6;--size:20px;}
+*{box-sizing:border-box;scroll-behavior:smooth}body{margin:0;font-family:Atkinson Hyperlegible,Lexend,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 12% 10%,rgba(82,167,255,.45),transparent 32%),radial-gradient(circle at 85% 12%,rgba(110,231,255,.28),transparent 30%),linear-gradient(135deg,var(--bg),var(--bg2));color:var(--text);font-size:var(--size);line-height:1.65;overflow-x:hidden}
+.math-bg{position:fixed;inset:0;pointer-events:none;z-index:-2;opacity:.14;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:64px 64px;transform:translateY(calc(var(--scroll,0)*-.08px))}
+.glow{position:fixed;width:420px;height:420px;border-radius:999px;background:radial-gradient(circle,rgba(110,231,255,.24),transparent 70%);filter:blur(8px);left:calc(var(--mx,50)*1vw - 210px);top:calc(var(--my,50)*1vh - 210px);pointer-events:none;z-index:-1;transition:.12s linear}
+.formulas span{position:fixed;color:rgba(255,255,255,.13);font-size:clamp(34px,6vw,96px);font-weight:800;animation:float 10s ease-in-out infinite;z-index:-1}.formulas span:nth-child(1){left:5%;top:18%}.formulas span:nth-child(2){right:8%;top:32%;animation-delay:1s}.formulas span:nth-child(3){left:18%;bottom:12%;animation-delay:2s}.formulas span:nth-child(4){right:18%;bottom:18%;animation-delay:3s}@keyframes float{50%{transform:translateY(-28px) rotate(3deg)}}
+.topbar{position:sticky;top:0;z-index:20;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:16px 26px;background:rgba(7,20,33,.62);backdrop-filter:blur(22px);border-bottom:1px solid var(--line)}.logo{font-weight:900;font-size:25px;color:var(--gold)}.topbar nav{display:flex;gap:8px;flex-wrap:wrap}.topbar a,.tool button{color:var(--text);text-decoration:none;border:1px solid var(--line);background:rgba(255,255,255,.09);padding:10px 14px;border-radius:999px;font-weight:800;font-size:16px}.topbar a:hover,.tool button:hover{background:var(--glass2);transform:translateY(-2px)}
+.hero{min-height:92vh;display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;max-width:1320px;margin:auto;padding:60px 28px}.badge{display:inline-flex;padding:10px 18px;border:1px solid rgba(255,233,166,.38);background:rgba(255,233,166,.13);color:var(--gold);border-radius:999px;font-weight:900}h1{font-size:clamp(54px,8vw,112px);line-height:.96;margin:18px 0}h1 span{color:var(--cyan)}.lead{font-size:26px;color:var(--muted);max-width:760px}.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:25px}.btn{display:inline-block;background:linear-gradient(135deg,var(--cyan),var(--blue));color:#001928;text-decoration:none;padding:16px 24px;border-radius:20px;font-weight:950;box-shadow:0 18px 45px rgba(82,167,255,.25)}.btn.alt{background:rgba(255,255,255,.12);color:var(--text);border:1px solid var(--line)}
+.cover-card{background:var(--glass);border:1px solid var(--line);border-radius:34px;padding:18px;backdrop-filter:blur(24px);box-shadow:0 30px 90px rgba(0,0,0,.34);transform:perspective(1200px) rotateY(-7deg) rotateX(3deg);animation:coverMove 7s ease-in-out infinite}@keyframes coverMove{50%{transform:perspective(1200px) rotateY(-2deg) rotateX(1deg) translateY(-12px)}}.cover-card img{width:100%;border-radius:24px;display:block}
+.stats{max-width:1320px;margin:0 auto 30px;padding:0 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.stat{background:var(--glass);border:1px solid var(--line);border-radius:24px;padding:24px;backdrop-filter:blur(20px)}.stat b{font-size:42px;color:var(--cyan);display:block}
+.chapter{max-width:1320px;margin:38px auto;padding:0 28px}.chapter-head{background:rgba(255,255,255,.12);border:1px solid var(--line);border-radius:30px;padding:34px;backdrop-filter:blur(22px);margin-bottom:20px}.eyebrow{color:var(--gold);font-weight:900;text-transform:uppercase;letter-spacing:.08em}h2{font-size:clamp(38px,5vw,64px);line-height:1;margin:0 0 14px;color:var(--gold)}.page-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}.page-card{text-align:left;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.12);border-radius:24px;padding:12px;cursor:pointer;backdrop-filter:blur(18px);position:relative;overflow:hidden;transition:.22s ease;min-height:330px}.page-card:hover{transform:translateY(-8px) scale(1.015);background:rgba(255,255,255,.2)}.page-card img{width:100%;height:250px;object-fit:cover;object-position:top;border-radius:18px;display:block;background:white}.caption{display:block;font-weight:800;font-size:16px;padding:10px 4px 2px;color:#eef8ff}.page-number{position:absolute;top:18px;left:18px;z-index:2;background:rgba(7,20,33,.82);border:1px solid var(--line);padding:6px 10px;border-radius:12px;font-weight:950;color:var(--cyan)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(15px);display:none;align-items:center;justify-content:center;z-index:60;padding:24px}.modal.open{display:flex}.modal-box{width:min(1120px,95vw);height:min(92vh,980px);background:rgba(10,25,42,.9);border:1px solid var(--line);border-radius:28px;padding:18px;display:grid;grid-template-rows:auto 1fr;box-shadow:0 30px 90px rgba(0,0,0,.55)}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:0 0 12px}.modal-title{font-weight:950;color:var(--gold)}.close{background:white;color:#071421;border:0;border-radius:14px;font-size:22px;font-weight:950;padding:8px 14px;cursor:pointer}.modal-img-wrap{overflow:auto;background:#f7f7f7;border-radius:20px;text-align:center}.modal img{max-width:100%;height:auto;display:block;margin:auto}
+.tool{position:fixed;right:18px;bottom:18px;display:flex;gap:8px;z-index:70;flex-wrap:wrap}.high{--bg:#000;--bg2:#000;--text:#fff;--muted:#fff;--cyan:#00ffff;--gold:#ffff00;--glass:rgba(255,255,255,.2)}.reduce *{animation:none!important;transition:none!important}.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}
+@media(max-width:950px){.hero{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.topbar{position:relative;display:block}.topbar nav{margin-top:10px}}@media(max-width:560px){.stats{grid-template-columns:1fr}.page-grid{grid-template-columns:1fr}}
+</style></head><body><div class="math-bg"></div><div class="glow"></div><div class="formulas"><span>∫</span><span>∑</span><span>π</span><span>√</span></div><header class="topbar"><div class="logo">∫ Portafolio Matemática III</div><nav><a href="#inicio">Inicio</a><a href="#diario">Diario metacognitivo</a><a href="#practicas">Prácticas</a><a href="#talleres">Talleres y GeoGebra</a><a href="#parciales">Parciales y correcciones</a><a href="#glosario">Glosario / Bibliografía / Anexos</a></nav></header><main><section class="hero" id="top"><div class="reveal"><span class="badge">Versión HTML interactiva</span><h1>Portafolio<br><span>Matemática III</span></h1><p class="lead">Magdalena Gonzalez 4-819-1590</p><div class="cta"><a class="btn" href="#inicio">Ver contenido</a><a class="btn alt" href="MAGDALENA GONZALEZ PORTAFOLIO.pdf">Abrir PDF original</a></div></div><div class="cover-card reveal"><img src="assets/pages/page_001.jpg" alt="Portada del portafolio"></div></section><div class="stats reveal"><div class="stat"><b>126</b>páginas integradas</div><div class="stat"><b>16</b>semanas de diario</div><div class="stat"><b>85%</b>prácticas requeridas</div><div class="stat"><b>A+</b>modo lectura grande</div></div><section id="inicio" class="chapter"><div class="chapter-head reveal"><p class="eyebrow">Páginas 1-5</p><h2>Inicio</h2><p>Portada, misión/visión, autobiografía, descripción e introducción</p></div><div class="page-grid">
+<button class="page-card reveal" data-page="1" data-title="UNIVERSIDAD TECNOLÓGICA DE PANAMÁ">
+  <span class="page-number">01</span>
+  <img loading="lazy" src="assets/pages/page_001.jpg" alt="Página 1 del portafolio">
+  <span class="caption">UNIVERSIDAD TECNOLÓGICA DE PANAMÁ</span>
+</button>
+<button class="page-card reveal" data-page="2" data-title="Misión y Visión">
+  <span class="page-number">02</span>
+  <img loading="lazy" src="assets/pages/page_002.jpg" alt="Página 2 del portafolio">
+  <span class="caption">Misión y Visión</span>
+</button>
+<button class="page-card reveal" data-page="3" data-title="AUTOBIOGRAFÍA">
+  <span class="page-number">03</span>
+  <img loading="lazy" src="assets/pages/page_003.jpg" alt="Página 3 del portafolio">
+  <span class="caption">AUTOBIOGRAFÍA</span>
+</button>
+<button class="page-card reveal" data-page="4" data-title="CURSO DE MATEMÁTICAS III">
+  <span class="page-number">04</span>
+  <img loading="lazy" src="assets/pages/page_004.jpg" alt="Página 4 del portafolio">
+  <span class="caption">CURSO DE MATEMÁTICAS III</span>
+</button>
+<button class="page-card reveal" data-page="5" data-title="INTRODUCCIÓN">
+  <span class="page-number">05</span>
+  <img loading="lazy" src="assets/pages/page_005.jpg" alt="Página 5 del portafolio">
+  <span class="caption">INTRODUCCIÓN</span>
+</button>
+</div></section>
+<section id="diario" class="chapter"><div class="chapter-head reveal"><p class="eyebrow">Páginas 6-22</p><h2>Diario metacognitivo</h2><p>Semanas 1 a 16 con reflexión del aprendizaje</p></div><div class="page-grid">
+<button class="page-card reveal" data-page="6" data-title="DIARIO SEMANAL">
+  <span class="page-number">06</span>
+  <img loading="lazy" src="assets/pages/page_006.jpg" alt="Página 6 del portafolio">
+  <span class="caption">DIARIO SEMANAL</span>
+</button>
+<button class="page-card reveal" data-page="7" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">07</span>
+  <img loading="lazy" src="assets/pages/page_007.jpg" alt="Página 7 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="8" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">08</span>
+  <img loading="lazy" src="assets/pages/page_008.jpg" alt="Página 8 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="9" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">09</span>
+  <img loading="lazy" src="assets/pages/page_009.jpg" alt="Página 9 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="10" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">10</span>
+  <img loading="lazy" src="assets/pages/page_010.jpg" alt="Página 10 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="11" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">11</span>
+  <img loading="lazy" src="assets/pages/page_011.jpg" alt="Página 11 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="12" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">12</span>
+  <img loading="lazy" src="assets/pages/page_012.jpg" alt="Página 12 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="13" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">13</span>
+  <img loading="lazy" src="assets/pages/page_013.jpg" alt="Página 13 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="14" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">14</span>
+  <img loading="lazy" src="assets/pages/page_014.jpg" alt="Página 14 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="15" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">15</span>
+  <img loading="lazy" src="assets/pages/page_015.jpg" alt="Página 15 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="16" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">16</span>
+  <img loading="lazy" src="assets/pages/page_016.jpg" alt="Página 16 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="17" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">17</span>
+  <img loading="lazy" src="assets/pages/page_017.jpg" alt="Página 17 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="18" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">18</span>
+  <img loading="lazy" src="assets/pages/page_018.jpg" alt="Página 18 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="19" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">19</span>
+  <img loading="lazy" src="assets/pages/page_019.jpg" alt="Página 19 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="20" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">20</span>
+  <img loading="lazy" src="assets/pages/page_020.jpg" alt="Página 20 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="21" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">21</span>
+  <img loading="lazy" src="assets/pages/page_021.jpg" alt="Página 21 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+<button class="page-card reveal" data-page="22" data-title="Diario Semanal Metacognitivo">
+  <span class="page-number">22</span>
+  <img loading="lazy" src="assets/pages/page_022.jpg" alt="Página 22 del portafolio">
+  <span class="caption">Diario Semanal Metacognitivo</span>
+</button>
+</div></section>
+<section id="practicas" class="chapter"><div class="chapter-head reveal"><p class="eyebrow">Páginas 23-65</p><h2>Prácticas</h2><p>Integrales, sustitución, partes, trigonométrica y fracciones parciales</p></div><div class="page-grid">
+<button class="page-card reveal" data-page="23" data-title="PRÁCTICAS">
+  <span class="page-number">23</span>
+  <img loading="lazy" src="assets/pages/page_023.jpg" alt="Página 23 del portafolio">
+  <span class="caption">PRÁCTICAS</span>
+</button>
+<button class="page-card reveal" data-page="24" data-title="Practica 1">
+  <span class="page-number">24</span>
+  <img loading="lazy" src="assets/pages/page_024.jpg" alt="Página 24 del portafolio">
+  <span class="caption">Practica 1</span>
+</button>
+<button class="page-card reveal" data-page="25" data-title="Página 25">
+  <span class="page-number">25</span>
+  <img loading="lazy" src="assets/pages/page_025.jpg" alt="Página 25 del portafolio">
+  <span class="caption">Página 25</span>
+</button>
+<button class="page-card reveal" data-page="26" data-title="Página 26">
+  <span class="page-number">26</span>
+  <img loading="lazy" src="assets/pages/page_026.jpg" alt="Página 26 del portafolio">
+  <span class="caption">Página 26</span>
+</button>
+<button class="page-card reveal" data-page="27" data-title="Página 27">
+  <span class="page-number">27</span>
+  <img loading="lazy" src="assets/pages/page_027.jpg" alt="Página 27 del portafolio">
+  <span class="caption">Página 27</span>
+</button>
+<button class="page-card reveal" data-page="28" data-title="Página 28">
+  <span class="page-number">28</span>
+  <img loading="lazy" src="assets/pages/page_028.jpg" alt="Página 28 del portafolio">
+  <span class="caption">Página 28</span>
+</button>
+<button class="page-card reveal" data-page="29" data-title="Página 29">
+  <span class="page-number">29</span>
+  <img loading="lazy" src="assets/pages/page_029.jpg" alt="Página 29 del portafolio">
+  <span class="caption">Página 29</span>
+</button>
+<button class="page-card reveal" data-page="30" data-title="PRACTICA 1">
+  <span class="page-number">30</span>
+  <img loading="lazy" src="assets/pages/page_030.jpg" alt="Página 30 del portafolio">
+  <span class="caption">PRACTICA 1</span>
+</button>
+<button class="page-card reveal" data-page="31" data-title="Practica 2">
+  <span class="page-number">31</span>
+  <img loading="lazy" src="assets/pages/page_031.jpg" alt="Página 31 del portafolio">
+  <span class="caption">Practica 2</span>
+</button>
+<button class="page-card reveal" data-page="32" data-title="Página 32">
+  <span class="page-number">32</span>
+  <img loading="lazy" src="assets/pages/page_032.jpg" alt="Página 32 del portafolio">
+  <span class="caption">Página 32</span>
+</button>
+<button class="page-card reveal" data-page="33" data-title="Página 33">
+  <span class="page-number">33</span>
+  <img loading="lazy" src="assets/pages/page_033.jpg" alt="Página 33 del portafolio">
+  <span class="caption">Página 33</span>
+</button>
+<button class="page-card reveal" data-page="34" data-title="PRACTICA 2.pdf">
+  <span class="page-number">34</span>
+  <img loading="lazy" src="assets/pages/page_034.jpg" alt="Página 34 del portafolio">
+  <span class="caption">PRACTICA 2.pdf</span>
+</button>
+<button class="page-card reveal" data-page="35" data-title="Practica Integrales Definidas">
+  <span class="page-number">35</span>
+  <img loading="lazy" src="assets/pages/page_035.jpg" alt="Página 35 del portafolio">
+  <span class="caption">Practica Integrales Definidas</span>
+</button>
+<button class="page-card reveal" data-page="36" data-title="Página 36">
+  <span class="page-number">36</span>
+  <img loading="lazy" src="assets/pages/page_036.jpg" alt="Página 36 del portafolio">
+  <span class="caption">Página 36</span>
+</button>
+<button class="page-card reveal" data-page="37" data-title="Página 37">
+  <span class="page-number">37</span>
+  <img loading="lazy" src="assets/pages/page_037.jpg" alt="Página 37 del portafolio">
+  <span class="caption">Página 37</span>
+</button>
+<button class="page-card reveal" data-page="38" data-title="Página 38">
+  <span class="page-number">38</span>
+  <img loading="lazy" src="assets/pages/page_038.jpg" alt="Página 38 del portafolio">
+  <span class="caption">Página 38</span>
+</button>
+<button class="page-card reveal" data-page="39" data-title="Página 39">
+  <span class="page-number">39</span>
+  <img loading="lazy" src="assets/pages/page_039.jpg" alt="Página 39 del portafolio">
+  <span class="caption">Página 39</span>
+</button>
+<button class="page-card reveal" data-page="40" data-title="PRACTICA">
+  <span class="page-number">40</span>
+  <img loading="lazy" src="assets/pages/page_040.jpg" alt="Página 40 del portafolio">
+  <span class="caption">PRACTICA</span>
+</button>
+<button class="page-card reveal" data-page="41" data-title="Integración por Partes">
+  <span class="page-number">41</span>
+  <img loading="lazy" src="assets/pages/page_041.jpg" alt="Página 41 del portafolio">
+  <span class="caption">Integración por Partes</span>
+</button>
+<button class="page-card reveal" data-page="42" data-title="Página 42">
+  <span class="page-number">42</span>
+  <img loading="lazy" src="assets/pages/page_042.jpg" alt="Página 42 del portafolio">
+  <span class="caption">Página 42</span>
+</button>
+<button class="page-card reveal" data-page="43" data-title="Página 43">
+  <span class="page-number">43</span>
+  <img loading="lazy" src="assets/pages/page_043.jpg" alt="Página 43 del portafolio">
+  <span class="caption">Página 43</span>
+</button>
+<button class="page-card reveal" data-page="44" data-title="Página 44">
+  <span class="page-number">44</span>
+  <img loading="lazy" src="assets/pages/page_044.jpg" alt="Página 44 del portafolio">
+  <span class="caption">Página 44</span>
+</button>
+<button class="page-card reveal" data-page="45" data-title="Sustitución Trigonométrica">
+  <span class="page-number">45</span>
+  <img loading="lazy" src="assets/pages/page_045.jpg" alt="Página 45 del portafolio">
+  <span class="caption">Sustitución Trigonométrica</span>
+</button>
+<button class="page-card reveal" data-page="46" data-title="Página 46">
+  <span class="page-number">46</span>
+  <img loading="lazy" src="assets/pages/page_046.jpg" alt="Página 46 del portafolio">
+  <span class="caption">Página 46</span>
+</button>
+<button class="page-card reveal" data-page="47" data-title="Página 47">
+  <span class="page-number">47</span>
+  <img loading="lazy" src="assets/pages/page_047.jpg" alt="Página 47 del portafolio">
+  <span class="caption">Página 47</span>
+</button>
+<button class="page-card reveal" data-page="48" data-title="Página 48">
+  <span class="page-number">48</span>
+  <img loading="lazy" src="assets/pages/page_048.jpg" alt="Página 48 del portafolio">
+  <span class="caption">Página 48</span>
+</button>
+<button class="page-card reveal" data-page="49" data-title="Página 49">
+  <span class="page-number">49</span>
+  <img loading="lazy" src="assets/pages/page_049.jpg" alt="Página 49 del portafolio">
+  <span class="caption">Página 49</span>
+</button>
+<button class="page-card reveal" data-page="50" data-title="Página 50">
+  <span class="page-number">50</span>
+  <img loading="lazy" src="assets/pages/page_050.jpg" alt="Página 50 del portafolio">
+  <span class="caption">Página 50</span>
+</button>
+<button class="page-card reveal" data-page="51" data-title="Página 51">
+  <span class="page-number">51</span>
+  <img loading="lazy" src="assets/pages/page_051.jpg" alt="Página 51 del portafolio">
+  <span class="caption">Página 51</span>
+</button>
+<button class="page-card reveal" data-page="52" data-title="Página 52">
+  <span class="page-number">52</span>
+  <img loading="lazy" src="assets/pages/page_052.jpg" alt="Página 52 del portafolio">
+  <span class="caption">Página 52</span>
+</button>
+<button class="page-card reveal" data-page="53" data-title="Método de Fracciones Parciales">
+  <span class="page-number">53</span>
+  <img loading="lazy" src="assets/pages/page_053.jpg" alt="Página 53 del portafolio">
+  <span class="caption">Método de Fracciones Parciales</span>
+</button>
+<button class="page-card reveal" data-page="54" data-title="Página 54">
+  <span class="page-number">54</span>
+  <img loading="lazy" src="assets/pages/page_054.jpg" alt="Página 54 del portafolio">
+  <span class="caption">Página 54</span>
+</button>
+<button class="page-card reveal" data-page="55" data-title="Página 55">
+  <span class="page-number">55</span>
+  <img loading="lazy" src="assets/pages/page_055.jpg" alt="Página 55 del portafolio">
+  <span class="caption">Página 55</span>
+</button>
+<button class="page-card reveal" data-page="56" data-title="Simpson">
+  <span class="page-number">56</span>
+  <img loading="lazy" src="assets/pages/page_056.jpg" alt="Página 56 del portafolio">
+  <span class="caption">Simpson</span>
+</button>
+<button class="page-card reveal" data-page="57" data-title="Área de una región del plano">
+  <span class="page-number">57</span>
+  <img loading="lazy" src="assets/pages/page_057.jpg" alt="Página 57 del portafolio">
+  <span class="caption">Área de una región del plano</span>
+</button>
+<button class="page-card reveal" data-page="58" data-title="Derivadas parciales de Primer Orden">
+  <span class="page-number">58</span>
+  <img loading="lazy" src="assets/pages/page_058.jpg" alt="Página 58 del portafolio">
+  <span class="caption">Derivadas parciales de Primer Orden</span>
+</button>
+<button class="page-card reveal" data-page="59" data-title="Página 59">
+  <span class="page-number">59</span>
+  <img loading="lazy" src="assets/pages/page_059.jpg" alt="Página 59 del portafolio">
+  <span class="caption">Página 59</span>
+</button>
+<button class="page-card reveal" data-page="60" data-title="Página 60">
+  <span class="page-number">60</span>
+  <img loading="lazy" src="assets/pages/page_060.jpg" alt="Página 60 del portafolio">
+  <span class="caption">Página 60</span>
+</button>
+<button class="page-card reveal" data-page="61" data-title="Página 61">
+  <span class="page-number">61</span>
+  <img loading="lazy" src="assets/pages/page_061.jpg" alt="Página 61 del portafolio">
+  <span class="caption">Página 61</span>
+</button>
+<button class="page-card reveal" data-page="62" data-title="Derivadas parciales de Segundo Orden">
+  <span class="page-number">62</span>
+  <img loading="lazy" src="assets/pages/page_062.jpg" alt="Página 62 del portafolio">
+  <span class="caption">Derivadas parciales de Segundo Orden</span>
+</button>
+<button class="page-card reveal" data-page="63" data-title="Página 63">
+  <span class="page-number">63</span>
+  <img loading="lazy" src="assets/pages/page_063.jpg" alt="Página 63 del portafolio">
+  <span class="caption">Página 63</span>
+</button>
+<button class="page-card reveal" data-page="64" data-title="Página 64">
+  <span class="page-number">64</span>
+  <img loading="lazy" src="assets/pages/page_064.jpg" alt="Página 64 del portafolio">
+  <span class="caption">Página 64</span>
+</button>
+<button class="page-card reveal" data-page="65" data-title="Página 65">
+  <span class="page-number">65</span>
+  <img loading="lazy" src="assets/pages/page_065.jpg" alt="Página 65 del portafolio">
+  <span class="caption">Página 65</span>
+</button>
+</div></section>
+<section id="talleres" class="chapter"><div class="chapter-head reveal"><p class="eyebrow">Páginas 66-73</p><h2>Talleres y GeoGebra</h2><p>Exposición, simulaciones y sólidos en GeoGebra</p></div><div class="page-grid">
+<button class="page-card reveal" data-page="66" data-title="TALLERES">
+  <span class="page-number">66</span>
+  <img loading="lazy" src="assets/pages/page_066.jpg" alt="Página 66 del portafolio">
+  <span class="caption">TALLERES</span>
+</button>
+<button class="page-card reveal" data-page="67" data-title="Problema de Exposición">
+  <span class="page-number">67</span>
+  <img loading="lazy" src="assets/pages/page_067.jpg" alt="Página 67 del portafolio">
+  <span class="caption">Problema de Exposición</span>
+</button>
+<button class="page-card reveal" data-page="68" data-title="Página 68">
+  <span class="page-number">68</span>
+  <img loading="lazy" src="assets/pages/page_068.jpg" alt="Página 68 del portafolio">
+  <span class="caption">Página 68</span>
+</button>
+<button class="page-card reveal" data-page="69" data-title="Página 69">
+  <span class="page-number">69</span>
+  <img loading="lazy" src="assets/pages/page_069.jpg" alt="Página 69 del portafolio">
+  <span class="caption">Página 69</span>
+</button>
+<button class="page-card reveal" data-page="70" data-title="Página 70">
+  <span class="page-number">70</span>
+  <img loading="lazy" src="assets/pages/page_070.jpg" alt="Página 70 del portafolio">
+  <span class="caption">Página 70</span>
+</button>
+<button class="page-card reveal" data-page="71" data-title="integrales_mejorado.">
+  <span class="page-number">71</span>
+  <img loading="lazy" src="assets/pages/page_071.jpg" alt="Página 71 del portafolio">
+  <span class="caption">integrales_mejorado.</span>
+</button>
+<button class="page-card reveal" data-page="72" data-title="Simpson">
+  <span class="page-number">72</span>
+  <img loading="lazy" src="assets/pages/page_072.jpg" alt="Página 72 del portafolio">
+  <span class="caption">Simpson</span>
+</button>
+<button class="page-card reveal" data-page="73" data-title="Solido en Geogebra">
+  <span class="page-number">73</span>
+  <img loading="lazy" src="assets/pages/page_073.jpg" alt="Página 73 del portafolio">
+  <span class="caption">Solido en Geogebra</span>
+</button>
+</div></section>
+<section id="parciales" class="chapter"><div class="chapter-head reveal"><p class="eyebrow">Páginas 74-101</p><h2>Parciales y correcciones</h2><p>Evidencias evaluadas y correcciones</p></div><div class="page-grid">
+<button class="page-card reveal" data-page="74" data-title="PARCIALES">
+  <span class="page-number">74</span>
+  <img loading="lazy" src="assets/pages/page_074.jpg" alt="Página 74 del portafolio">
+  <span class="caption">PARCIALES</span>
+</button>
+<button class="page-card reveal" data-page="75" data-title="Parcial 1">
+  <span class="page-number">75</span>
+  <img loading="lazy" src="assets/pages/page_075.jpg" alt="Página 75 del portafolio">
+  <span class="caption">Parcial 1</span>
+</button>
+<button class="page-card reveal" data-page="76" data-title="Página 76">
+  <span class="page-number">76</span>
+  <img loading="lazy" src="assets/pages/page_076.jpg" alt="Página 76 del portafolio">
+  <span class="caption">Página 76</span>
+</button>
+<button class="page-card reveal" data-page="77" data-title="Página 77">
+  <span class="page-number">77</span>
+  <img loading="lazy" src="assets/pages/page_077.jpg" alt="Página 77 del portafolio">
+  <span class="caption">Página 77</span>
+</button>
+<button class="page-card reveal" data-page="78" data-title="Página 78">
+  <span class="page-number">78</span>
+  <img loading="lazy" src="assets/pages/page_078.jpg" alt="Página 78 del portafolio">
+  <span class="caption">Página 78</span>
+</button>
+<button class="page-card reveal" data-page="79" data-title="✓ Corrección">
+  <span class="page-number">79</span>
+  <img loading="lazy" src="assets/pages/page_079.jpg" alt="Página 79 del portafolio">
+  <span class="caption">✓ Corrección</span>
+</button>
+<button class="page-card reveal" data-page="80" data-title="Parcial 2">
+  <span class="page-number">80</span>
+  <img loading="lazy" src="assets/pages/page_080.jpg" alt="Página 80 del portafolio">
+  <span class="caption">Parcial 2</span>
+</button>
+<button class="page-card reveal" data-page="81" data-title="Página 81">
+  <span class="page-number">81</span>
+  <img loading="lazy" src="assets/pages/page_081.jpg" alt="Página 81 del portafolio">
+  <span class="caption">Página 81</span>
+</button>
+<button class="page-card reveal" data-page="82" data-title="Página 82">
+  <span class="page-number">82</span>
+  <img loading="lazy" src="assets/pages/page_082.jpg" alt="Página 82 del portafolio">
+  <span class="caption">Página 82</span>
+</button>
+<button class="page-card reveal" data-page="83" data-title="Página 83">
+  <span class="page-number">83</span>
+  <img loading="lazy" src="assets/pages/page_083.jpg" alt="Página 83 del portafolio">
+  <span class="caption">Página 83</span>
+</button>
+<button class="page-card reveal" data-page="84" data-title="Página 84">
+  <span class="page-number">84</span>
+  <img loading="lazy" src="assets/pages/page_084.jpg" alt="Página 84 del portafolio">
+  <span class="caption">Página 84</span>
+</button>
+<button class="page-card reveal" data-page="85" data-title="✓ Corrección">
+  <span class="page-number">85</span>
+  <img loading="lazy" src="assets/pages/page_085.jpg" alt="Página 85 del portafolio">
+  <span class="caption">✓ Corrección</span>
+</button>
+<button class="page-card reveal" data-page="86" data-title="Parcial 3">
+  <span class="page-number">86</span>
+  <img loading="lazy" src="assets/pages/page_086.jpg" alt="Página 86 del portafolio">
+  <span class="caption">Parcial 3</span>
+</button>
+<button class="page-card reveal" data-page="87" data-title="Página 87">
+  <span class="page-number">87</span>
+  <img loading="lazy" src="assets/pages/page_087.jpg" alt="Página 87 del portafolio">
+  <span class="caption">Página 87</span>
+</button>
+<button class="page-card reveal" data-page="88" data-title="Página 88">
+  <span class="page-number">88</span>
+  <img loading="lazy" src="assets/pages/page_088.jpg" alt="Página 88 del portafolio">
+  <span class="caption">Página 88</span>
+</button>
+<button class="page-card reveal" data-page="89" data-title="Página 89">
+  <span class="page-number">89</span>
+  <img loading="lazy" src="assets/pages/page_089.jpg" alt="Página 89 del portafolio">
+  <span class="caption">Página 89</span>
+</button>
+<button class="page-card reveal" data-page="90" data-title="Página 90">
+  <span class="page-number">90</span>
+  <img loading="lazy" src="assets/pages/page_090.jpg" alt="Página 90 del portafolio">
+  <span class="caption">Página 90</span>
+</button>
+<button class="page-card reveal" data-page="91" data-title="Página 91">
+  <span class="page-number">91</span>
+  <img loading="lazy" src="assets/pages/page_091.jpg" alt="Página 91 del portafolio">
+  <span class="caption">Página 91</span>
+</button>
+<button class="page-card reveal" data-page="92" data-title="Página 92">
+  <span class="page-number">92</span>
+  <img loading="lazy" src="assets/pages/page_092.jpg" alt="Página 92 del portafolio">
+  <span class="caption">Página 92</span>
+</button>
+<button class="page-card reveal" data-page="93" data-title="Página 93">
+  <span class="page-number">93</span>
+  <img loading="lazy" src="assets/pages/page_093.jpg" alt="Página 93 del portafolio">
+  <span class="caption">Página 93</span>
+</button>
+<button class="page-card reveal" data-page="94" data-title="Página 94">
+  <span class="page-number">94</span>
+  <img loading="lazy" src="assets/pages/page_094.jpg" alt="Página 94 del portafolio">
+  <span class="caption">Página 94</span>
+</button>
+<button class="page-card reveal" data-page="95" data-title="Página 95">
+  <span class="page-number">95</span>
+  <img loading="lazy" src="assets/pages/page_095.jpg" alt="Página 95 del portafolio">
+  <span class="caption">Página 95</span>
+</button>
+<button class="page-card reveal" data-page="96" data-title="Página 96">
+  <span class="page-number">96</span>
+  <img loading="lazy" src="assets/pages/page_096.jpg" alt="Página 96 del portafolio">
+  <span class="caption">Página 96</span>
+</button>
+<button class="page-card reveal" data-page="97" data-title="Página 97">
+  <span class="page-number">97</span>
+  <img loading="lazy" src="assets/pages/page_097.jpg" alt="Página 97 del portafolio">
+  <span class="caption">Página 97</span>
+</button>
+<button class="page-card reveal" data-page="98" data-title="Página 98">
+  <span class="page-number">98</span>
+  <img loading="lazy" src="assets/pages/page_098.jpg" alt="Página 98 del portafolio">
+  <span class="caption">Página 98</span>
+</button>
+<button class="page-card reveal" data-page="99" data-title="Página 99">
+  <span class="page-number">99</span>
+  <img loading="lazy" src="assets/pages/page_099.jpg" alt="Página 99 del portafolio">
+  <span class="caption">Página 99</span>
+</button>
+<button class="page-card reveal" data-page="100" data-title="Página 100">
+  <span class="page-number">100</span>
+  <img loading="lazy" src="assets/pages/page_100.jpg" alt="Página 100 del portafolio">
+  <span class="caption">Página 100</span>
+</button>
+<button class="page-card reveal" data-page="101" data-title="Página 101">
+  <span class="page-number">101</span>
+  <img loading="lazy" src="assets/pages/page_101.jpg" alt="Página 101 del portafolio">
+  <span class="caption">Página 101</span>
+</button>
+</div></section>
+<section id="glosario" class="chapter"><div class="chapter-head reveal"><p class="eyebrow">Páginas 102-126</p><h2>Glosario / Bibliografía / Anexos</h2><p>Cierre documental y anexos finales</p></div><div class="page-grid">
+<button class="page-card reveal" data-page="102" data-title="Página 102">
+  <span class="page-number">102</span>
+  <img loading="lazy" src="assets/pages/page_102.jpg" alt="Página 102 del portafolio">
+  <span class="caption">Página 102</span>
+</button>
+<button class="page-card reveal" data-page="103" data-title="Página 103">
+  <span class="page-number">103</span>
+  <img loading="lazy" src="assets/pages/page_103.jpg" alt="Página 103 del portafolio">
+  <span class="caption">Página 103</span>
+</button>
+<button class="page-card reveal" data-page="104" data-title="Página 104">
+  <span class="page-number">104</span>
+  <img loading="lazy" src="assets/pages/page_104.jpg" alt="Página 104 del portafolio">
+  <span class="caption">Página 104</span>
+</button>
+<button class="page-card reveal" data-page="105" data-title="Quiz">
+  <span class="page-number">105</span>
+  <img loading="lazy" src="assets/pages/page_105.jpg" alt="Página 105 del portafolio">
+  <span class="caption">Quiz</span>
+</button>
+<button class="page-card reveal" data-page="106" data-title="Quiz 1">
+  <span class="page-number">106</span>
+  <img loading="lazy" src="assets/pages/page_106.jpg" alt="Página 106 del portafolio">
+  <span class="caption">Quiz 1</span>
+</button>
+<button class="page-card reveal" data-page="107" data-title="Página 107">
+  <span class="page-number">107</span>
+  <img loading="lazy" src="assets/pages/page_107.jpg" alt="Página 107 del portafolio">
+  <span class="caption">Página 107</span>
+</button>
+<button class="page-card reveal" data-page="108" data-title="Quiz 2">
+  <span class="page-number">108</span>
+  <img loading="lazy" src="assets/pages/page_108.jpg" alt="Página 108 del portafolio">
+  <span class="caption">Quiz 2</span>
+</button>
+<button class="page-card reveal" data-page="109" data-title="Página 109">
+  <span class="page-number">109</span>
+  <img loading="lazy" src="assets/pages/page_109.jpg" alt="Página 109 del portafolio">
+  <span class="caption">Página 109</span>
+</button>
+<button class="page-card reveal" data-page="110" data-title="Página 110">
+  <span class="page-number">110</span>
+  <img loading="lazy" src="assets/pages/page_110.jpg" alt="Página 110 del portafolio">
+  <span class="caption">Página 110</span>
+</button>
+<button class="page-card reveal" data-page="111" data-title="Página 111">
+  <span class="page-number">111</span>
+  <img loading="lazy" src="assets/pages/page_111.jpg" alt="Página 111 del portafolio">
+  <span class="caption">Página 111</span>
+</button>
+<button class="page-card reveal" data-page="112" data-title="Quiz 3">
+  <span class="page-number">112</span>
+  <img loading="lazy" src="assets/pages/page_112.jpg" alt="Página 112 del portafolio">
+  <span class="caption">Quiz 3</span>
+</button>
+<button class="page-card reveal" data-page="113" data-title="Página 113">
+  <span class="page-number">113</span>
+  <img loading="lazy" src="assets/pages/page_113.jpg" alt="Página 113 del portafolio">
+  <span class="caption">Página 113</span>
+</button>
+<button class="page-card reveal" data-page="114" data-title="Página 114">
+  <span class="page-number">114</span>
+  <img loading="lazy" src="assets/pages/page_114.jpg" alt="Página 114 del portafolio">
+  <span class="caption">Página 114</span>
+</button>
+<button class="page-card reveal" data-page="115" data-title="Quiz 4">
+  <span class="page-number">115</span>
+  <img loading="lazy" src="assets/pages/page_115.jpg" alt="Página 115 del portafolio">
+  <span class="caption">Quiz 4</span>
+</button>
+<button class="page-card reveal" data-page="116" data-title="Página 116">
+  <span class="page-number">116</span>
+  <img loading="lazy" src="assets/pages/page_116.jpg" alt="Página 116 del portafolio">
+  <span class="caption">Página 116</span>
+</button>
+<button class="page-card reveal" data-page="117" data-title="CONCLUSIÓN">
+  <span class="page-number">117</span>
+  <img loading="lazy" src="assets/pages/page_117.jpg" alt="Página 117 del portafolio">
+  <span class="caption">CONCLUSIÓN</span>
+</button>
+<button class="page-card reveal" data-page="118" data-title="GLOSARIO">
+  <span class="page-number">118</span>
+  <img loading="lazy" src="assets/pages/page_118.jpg" alt="Página 118 del portafolio">
+  <span class="caption">GLOSARIO</span>
+</button>
+<button class="page-card reveal" data-page="119" data-title="24. Disco: Método para calcular volumen de sólidos.">
+  <span class="page-number">119</span>
+  <img loading="lazy" src="assets/pages/page_119.jpg" alt="Página 119 del portafolio">
+  <span class="caption">24. Disco: Método para calcular volumen de sólidos.</span>
+</button>
+<button class="page-card reveal" data-page="120" data-title="48. Integración por partes: Técnica basada en productos.">
+  <span class="page-number">120</span>
+  <img loading="lazy" src="assets/pages/page_120.jpg" alt="Página 120 del portafolio">
+  <span class="caption">48. Integración por partes: Técnica basada en productos.</span>
+</button>
+<button class="page-card reveal" data-page="121" data-title="72. Propiedad lineal: Propiedad de suma en integrales.">
+  <span class="page-number">121</span>
+  <img loading="lazy" src="assets/pages/page_121.jpg" alt="Página 121 del portafolio">
+  <span class="caption">72. Propiedad lineal: Propiedad de suma en integrales.</span>
+</button>
+<button class="page-card reveal" data-page="122" data-title="96. Volumen por arandelas: Método con huecos.">
+  <span class="page-number">122</span>
+  <img loading="lazy" src="assets/pages/page_122.jpg" alt="Página 122 del portafolio">
+  <span class="caption">96. Volumen por arandelas: Método con huecos.</span>
+</button>
+<button class="page-card reveal" data-page="123" data-title="BIBLIOGRAFÍA">
+  <span class="page-number">123</span>
+  <img loading="lazy" src="assets/pages/page_123.jpg" alt="Página 123 del portafolio">
+  <span class="caption">BIBLIOGRAFÍA</span>
+</button>
+<button class="page-card reveal" data-page="124" data-title="Anexos">
+  <span class="page-number">124</span>
+  <img loading="lazy" src="assets/pages/page_124.jpg" alt="Página 124 del portafolio">
+  <span class="caption">Anexos</span>
+</button>
+<button class="page-card reveal" data-page="125" data-title="Mapas">
+  <span class="page-number">125</span>
+  <img loading="lazy" src="assets/pages/page_125.jpg" alt="Página 125 del portafolio">
+  <span class="caption">Mapas</span>
+</button>
+<button class="page-card reveal" data-page="126" data-title="Página 126">
+  <span class="page-number">126</span>
+  <img loading="lazy" src="assets/pages/page_126.jpg" alt="Página 126 del portafolio">
+  <span class="caption">Página 126</span>
+</button>
+</div></section>
+</main><div class="modal" id="modal"><div class="modal-box"><div class="modal-head"><div class="modal-title" id="modalTitle">Página</div><button class="close" id="close">×</button></div><div class="modal-img-wrap"><img id="modalImg" src="" alt="Página ampliada"></div></div></div><div class="tool"><button onclick="size(2)">A+</button><button onclick="size(-2)">A-</button><button onclick="document.body.classList.toggle('high')">Contraste</button><button onclick="document.body.classList.toggle('reduce')">Sin movimiento</button></div><script>
+let fs=20;function size(n){fs=Math.max(18,Math.min(30,fs+n));document.documentElement.style.setProperty('--size',fs+'px')}
+const root=document.documentElement;addEventListener('mousemove',e=>{root.style.setProperty('--mx',(e.clientX/innerWidth*100).toFixed(1));root.style.setProperty('--my',(e.clientY/innerHeight*100).toFixed(1));});addEventListener('scroll',()=>root.style.setProperty('--scroll',scrollY));
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.08});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const modal=document.getElementById('modal'), img=document.getElementById('modalImg'), title=document.getElementById('modalTitle');document.querySelectorAll('.page-card').forEach(card=>card.addEventListener('click',()=>{let p=card.dataset.page;img.src=`assets/pages/page_${String(p).padStart(3,'0')}.jpg`;title.textContent=`Página ${p} - ${card.dataset.title}`;modal.classList.add('open');}));document.getElementById('close').onclick=()=>modal.classList.remove('open');modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('open')})
+</script></body></html>
